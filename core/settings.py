@@ -79,16 +79,29 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
+DATABASE_URL = os.environ.get(
+    'DATABASE_URL',
+    'postgresql://postgres:edy123456ABC%40%23@db.qrnhtojksisnusccggga.supabase.co:5432/postgres'
+)
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'educacional',       # Certifica-te de criar esta BD no Postgres
-        'USER': 'postgres',          # Teu utilizador do Postgres
-        'PASSWORD': 'edy123456', # Tua palavra-passe do Postgres
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'educacional',       # Certifica-te de criar esta BD no Postgres
+#        'USER': 'postgres',          # Teu utilizador do Postgres
+#        'PASSWORD': 'edy123456', # Tua palavra-passe do Postgres
+#        'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
+#}
 
 
 # Password validation
